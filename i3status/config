@@ -1,0 +1,72 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# Ia the above line is not correctly displayed, fix your editor first!
+
+
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 1
+        color_good = "#b8bb26"
+        color_degraded = "#fabd2f"
+        color_bad = "#fb4934"
+        separator = ""
+}
+
+order += "wireless wlo1"
+order += "ethernet eno1"
+order += "battery 0"
+order += "cpu_temperature 0"
+order += "memory"
+order += "load"
+order += "tztime rome"
+order += "volume master"
+
+wireless wlo1 {
+        format_up = "|W: (%quality, %bitrate) %ip|"
+        format_down = "|W: down|"
+}
+
+ethernet eno1 {
+        format_up = "|E: %ip (%speed)|"
+        format_down = "|E: down|"
+}
+battery 0 {
+        format = "%status %percentage %remaining %emptytime|"
+        format_down = "|No battery "
+        status_chr = "|⚡ CHR "
+        status_bat = "|BAT "
+        status_unk = "|? UNK "
+        status_full = "|☻ FULL "
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+cpu_temperature 0 {
+        format = "|T: %degrees °C|"
+        path = "/sys/class/thermal/thermal_zone1/temp"
+}
+
+memory {
+        format = "|%used|"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+load {
+        format = "|%1min|"
+}
+
+tztime rome {
+        format = "|%d-%m-%Y %H:%M|"
+        timezone = "Europe/Rome"
+}
+
+volume master{
+format="♪: %volume"
+format_muted="♪: muted (%volume)"
+}
